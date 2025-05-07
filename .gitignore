@@ -1,0 +1,6 @@
+# Ignorar variáveis de ambiente
+.env
+
+# Node.js
+node_modules/
+dist/
