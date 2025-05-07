@@ -5,6 +5,7 @@ const Rastreio = require('../models/rastreio');
 // Criar um novo rastreio com ESG
 router.post('/cadastro', async (req, res) => {
   try {
+    console.log('Recebido:', req.body); // <-- ADICIONE ISSO
     const novo = new Rastreio(req.body);
     await novo.save();
     res.status(201).json(novo);
