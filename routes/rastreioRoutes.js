@@ -1,19 +1,19 @@
 const express = require('express');
 const router = express.Router();
-const Rastreio = require('../models/Rastreio');
+const Rastreio = require('../models/rastreio');
 
-// 1. Cadastrar dados iniciais (feito pela filial)
+// Criar um novo rastreio com ESG
 router.post('/cadastro', async (req, res) => {
   try {
-    const novoRastreio = new Rastreio(req.body);
-    await novoRastreio.save();
-    res.status(201).json(novoRastreio);
+    const novo = new Rastreio(req.body);
+    await novo.save();
+    res.status(201).json(novo);
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
 });
 
-// 2. Atualizar lote do produto final (feito pelo cliente)
+// Atualizar lote final
 router.patch('/inserir-lote-final/:numeroLoteFilial', async (req, res) => {
   try {
     const { numeroLoteProdutoFinal } = req.body;
@@ -29,7 +29,7 @@ router.patch('/inserir-lote-final/:numeroLoteFilial', async (req, res) => {
   }
 });
 
-// 3. Consultar por lote do produto final (cliente final via QR Code)
+// Consultar por lote final
 router.get('/rastreio/:numeroLoteProdutoFinal', async (req, res) => {
   try {
     const rastreio = await Rastreio.findOne({ numeroLoteProdutoFinal: req.params.numeroLoteProdutoFinal });
@@ -41,3 +41,4 @@ router.get('/rastreio/:numeroLoteProdutoFinal', async (req, res) => {
 });
 
 module.exports = router;
+
